@@ -101,6 +101,7 @@ public class PieceView : MonoBehaviour
     }
     private void UpdateHealth()
     {
+        healthText.color = Color.red;
         healthText.text = health.ToString();
     }
 
