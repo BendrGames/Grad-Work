@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 namespace Game.Statemachine.States
 {
@@ -10,26 +11,38 @@ namespace Game.Statemachine.States
 
         private void Awake()
         {
-           gameloop = Gameloop.Instance;
+            gameloop = Gameloop.Instance;
             stateMachine = gameloop.stateMachine;
             questionScreen = gameloop.QuestionScreen;
         }
 
         public void OnEnterState()
-        {Gameloop gameloop = Gameloop.Instance;
-            gameloop.StartScreen.SetActive(true);
+        {
+            Gameloop gameloop = Gameloop.Instance;
+            
+            gameloop.StartGameSequence.StartSequence();
+            
+            gameloop.StartGameSequence.TutorialCompleted += UiSequenceDone;
+            
+            // gameloop.StartScreen.SetActive(true);
+        }
+        private void UiSequenceDone(object sender, EventArgs e)
+        {
+            stateMachine.SetState(stateMachine.GameGenerationState);
+            gameloop.StartGameSequence.TutorialCompleted -= UiSequenceDone;
         }
         public void OnExitState()
         {
-            gameloop.StartScreen.SetActive(false);
+            gameloop.StartGameSequence.gameObject.SetActive(false);
+            // gameloop.StartScreen.SetActive(false);
         }
         public void UpdateState()
         {
-         
+
         }
         public void ContinueButtonClocked()
         {
-            stateMachine.SetState(stateMachine.GameGenerationState);
+            // stateMachine.SetState(stateMachine.GameGenerationState);
         }
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcee7e3ec071884e84652d52fcc911f, type: 3}
   m_Name: Mob1 7
   m_EditorClassIdentifier: 
-  pieceName: 
-  image: {fileID: 0}
+  pieceName: Elephant
+  image: {fileID: 21300000, guid: 1c85a6ea5030b2d4ea3c6e65abd193e2, type: 3}
   attack: 3
   health: 6

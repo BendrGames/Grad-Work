@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcee7e3ec071884e84652d52fcc911f, type: 3}
   m_Name: Mob1 3
   m_EditorClassIdentifier: 
-  pieceName: 
-  image: {fileID: 0}
+  pieceName: Spider
+  image: {fileID: 21300000, guid: 03f002a42bd792a41a58e046a8c73518, type: 3}
   attack: 6
   health: 2

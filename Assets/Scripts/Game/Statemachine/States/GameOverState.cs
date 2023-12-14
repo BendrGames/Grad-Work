@@ -1,4 +1,6 @@
+using DefaultNamespace.ExcelWriting;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 namespace Game.Statemachine.States
 {
@@ -18,9 +20,11 @@ namespace Game.Statemachine.States
 
         public void OnEnterState()
         {
-            List<List<string>> data = gameloop.questionnaireData;
+            List<DataCollection> data = gameloop.DataCollection;
             
-            //write data to Excel File
+            List<DataCollection> printout = data.OrderBy(dc => dc.GetData().FirstOrDefault()).ToList();
+            
+            CSVWriter.WriteDataToCsv(printout);
             
             gameloop.GameOverScreen.SetActive(true);
         }

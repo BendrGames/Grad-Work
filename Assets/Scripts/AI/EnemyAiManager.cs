@@ -1,4 +1,7 @@
 using DefaultNamespace.AI.aiBehaviours;
+using DefaultNamespace.AI.aiBehaviours.complex;
+using DefaultNamespace.AI.aiBehaviours.high_medium;
+using DefaultNamespace.AI.aiBehaviours.Medium;
 using System.Collections.Generic;
 using UnityEngine;
 namespace DefaultNamespace.AI
@@ -13,25 +16,31 @@ namespace DefaultNamespace.AI
       
         public EnemyAiManager()
         {
-            behaviours.Add(AItypes.behaviour1, new AiRandomBehaviour());
-            behaviours.Add(AItypes.behaviour2, new AiRandomBehaviour());
-            behaviours.Add(AItypes.behaviour3, new AiRandomBehaviour());
-            behaviours.Add(AItypes.behaviour4, new AiRandomBehaviour());
-            behaviours.Add(AItypes.behaviour5, new AiRandomBehaviour());
+            behaviours.Add(AItypes.AiRandomBehaviour, new AiRandomBehaviour());
+            behaviours.Add(AItypes.AiRandomALowestHealthT, new AiRandomALowestHealthT());
+            behaviours.Add(AItypes.AIRandomAAttackAndHealthT, new AIRandomAAttackAndHealthT());
+            behaviours.Add(AItypes.AIRandomADangerEvalT, new AIRandomADangerEvalT());
+            behaviours.Add(AItypes.AIMiniMaxBehaviour, new AiMiniMaxBehaviour());
         }
         
-        public AIBehaviourBase GetRandomBehaviour()
+        public AIBehaviourBase SetRandomBehaviour()
         {
             int random = Random.Range(0, behaviours.Count);
             KeyValuePair<AItypes, AIBehaviourBase> randomentry = GetRandomEntry(behaviours);
-            
-            
-            
+
             AllreadyTestedBehviours.Add(randomentry.Key);
             currentBehaviourtype = randomentry.Key;
             currentBehaviour = randomentry.Value;
             return randomentry.Value;
         }
+        
+        public AIBehaviourBase SetSpecificBehaviour(AItypes type)
+        {
+            currentBehaviourtype = type;
+            currentBehaviour = behaviours[type];
+            return behaviours[type];
+        }
+        
 
         public bool IsTestedAllBehaviours()
         {
@@ -69,10 +78,10 @@ namespace DefaultNamespace.AI
     
     public enum AItypes
     {
-        behaviour1,
-        behaviour2,
-        behaviour3,
-        behaviour4,
-        behaviour5,
+        AiRandomBehaviour,
+        AiRandomALowestHealthT,
+        AIRandomAAttackAndHealthT,
+        AIRandomADangerEvalT,
+        AIMiniMaxBehaviour,
     }
 }

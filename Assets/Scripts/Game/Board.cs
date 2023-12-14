@@ -148,6 +148,18 @@ namespace Game
                 }
             }
         }
+        public bool DidPlayerLose()
+        {
+            if (PlayerPieces.Count == 0)
+            {
+                Gameloop.Instance.wonLastCombat = false;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
     
     

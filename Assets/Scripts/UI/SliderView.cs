@@ -30,4 +30,9 @@ public class SliderView : MonoBehaviour
         float sliderValue = slider.value;
        return Mathf.Round(sliderValue).ToString();
     }
+    
+    public void SetNumber(int number)
+    {
+        slider.value = number;
+    }
 }

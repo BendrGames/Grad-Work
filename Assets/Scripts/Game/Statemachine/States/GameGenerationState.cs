@@ -1,3 +1,4 @@
+using DefaultNamespace.AI;
 using Game;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,7 +20,11 @@ public class GameGenerationState : MonoBehaviour, IState
     public void OnEnterState()
     {
         board.GenerateBoard();
-        gameloop.enemyAiManager.GetRandomBehaviour();
+        
+        // gameloop.enemyAiManager.SetRandomBehaviour();
+        
+        gameloop.enemyAiManager.SetSpecificBehaviour(AItypes.AIMiniMaxBehaviour);
+        
         stateMachine.SetState(stateMachine.GameEnemyAIState);
     }
     public void OnExitState()

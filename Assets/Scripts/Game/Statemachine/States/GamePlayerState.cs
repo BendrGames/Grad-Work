@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 namespace Game.Statemachine.States
 {
@@ -40,8 +42,26 @@ namespace Game.Statemachine.States
 
         private void AttackAndDeathCompleted()
         {
+            StartCoroutine(EndEncounterRoutine());
+        }
+        
+        IEnumerator EndEncounterRoutine()
+        {
+            
             if (board.DidAnyPlayerLose())
             {
+                yield return new WaitForSeconds(0.5f);
+                
+                if(board.DidPlayerLose())
+                {
+                    gameloop.popup.ShowPopup("Game Over, you Lose this round!");
+                }
+                else
+                {
+                    gameloop.popup.ShowPopup("Game Over, you Win this round!");
+                }
+                
+                yield return new WaitForSeconds(1.5f);
                 gameloop.stateMachine.SetState(gameloop.stateMachine.GameDestructionState);
             }
             else

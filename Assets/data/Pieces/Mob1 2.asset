@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcee7e3ec071884e84652d52fcc911f, type: 3}
   m_Name: Mob1 2
   m_EditorClassIdentifier: 
-  pieceName: 
-  image: {fileID: 0}
+  pieceName: turtle
+  image: {fileID: 21300000, guid: 790ebfe1a47eb1e4087a9110b1afb243, type: 3}
   attack: 2
   health: 7

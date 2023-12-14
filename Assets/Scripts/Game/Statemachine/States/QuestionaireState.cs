@@ -1,4 +1,5 @@
 using DefaultNamespace.AI;
+using DefaultNamespace.ExcelWriting;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,9 @@ public class QuestionaireState : MonoBehaviour, IState
     public void OnEnterState()
     {
         questionScreen.SetActive(true);
+        gameloop.sliderViewDifficulty.SetNumber(5);
+        gameloop.sliderViewFun.SetNumber(5);
+        gameloop.sliderViewRealism.SetNumber(5);
     }
 
     public void OnExitState()
@@ -35,23 +39,23 @@ public class QuestionaireState : MonoBehaviour, IState
     public void ContinueButtonClocked()
     {
         string currentAI = gameloop.enemyAiManager.GetCurrentBehaviourString();
-        
-        List <string> data = new List<string>();
-        data.Add(currentAI);
+        DataCollection data = new DataCollection();
+        // List <string> data = new List<string>();
+        data.AddData(currentAI);
         if (gameloop.wonLastCombat)
         {
-            data.Add("1");
+            data.AddData("1");
         }
         else
         {
-            data.Add("0");
+            data.AddData("0");
         }
       
-        data.Add(gameloop.sliderViewDifficulty.GetNumber());
-        data.Add(gameloop.sliderViewFun.GetNumber());
-        data.Add(gameloop.sliderViewRealism.GetNumber());
+        data.AddData(gameloop.sliderViewDifficulty.GetNumber());
+        data.AddData(gameloop.sliderViewFun.GetNumber());
+        data.AddData(gameloop.sliderViewRealism.GetNumber());
         
-        gameloop.questionnaireData.Add(data);
+        gameloop.DataCollection.Add(data);
 
         if (gameloop.enemyAiManager.IsTestedAllBehaviours())
         {

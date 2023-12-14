@@ -21,7 +21,8 @@ public class PieceView : MonoBehaviour
 
     //view
     public SpriteRenderer spriteRenderer;
-    // public TextMeshPro nameText;
+    public SpriteRenderer Backimage;
+    public TextMeshPro nameText;
     public TextMeshPro attackText;
     public TextMeshPro healthText;
 
@@ -34,9 +35,10 @@ public class PieceView : MonoBehaviour
     
     [SerializeField]
     private float AttackLocationOffset = 2f;
-
+    public string Id { get; private set; }
     public void initializePiece(PieceData pieceData, PieceType pieceType)
     {
+        Id = Guid.NewGuid().ToString();
         this.pieceName = pieceData.pieceName;
         this.pieceType = pieceType;
         this.attack = pieceData.attack;
@@ -45,15 +47,17 @@ public class PieceView : MonoBehaviour
         // spriteRenderer.sprite = pieceData.image;
         if (pieceType == PieceType.Player)
         {
-            spriteRenderer.color = Color.blue;
+            Backimage.color = Color.blue;
             AttackLocation.localPosition += new Vector3(0, 0, AttackLocationOffset);
         }
         else if (pieceType == PieceType.AIPiece)
         {
-            spriteRenderer.color = Color.red;
+            Backimage.color = Color.red;
             AttackLocation.localPosition += new Vector3(0, 0, -AttackLocationOffset);
         }
-        // nameText.text = pieceData.pieceName;
+        
+        nameText.text = pieceData.pieceName;
+        spriteRenderer.sprite = pieceData.image;
         attackText.text = pieceData.attack.ToString();
         healthText.text = pieceData.health.ToString();
 

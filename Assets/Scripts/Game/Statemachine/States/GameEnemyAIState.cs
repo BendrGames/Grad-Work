@@ -38,7 +38,7 @@ namespace Game.Statemachine.States
             gameloop.LR.positionCount = 2;
             gameloop.LR.SetPosition(0, attacker.transform.position);
             gameloop.LR.SetPosition(1, target.transform.position);
-            
+
             gameloop.enemyAIButton.gameObject.SetActive(true);
 
             // attacker.PieceAttackAnimation(target, AttackCompleted);
@@ -47,12 +47,12 @@ namespace Game.Statemachine.States
         public void ContinueButtonClocked()
         {
             gameloop.enemyAIButton.gameObject.SetActive(false);
-            
+
             gameloop.LR.positionCount = 0;
-   
+
             attacker.PieceAttackAnimation(target, AttackCompleted);
         }
-        
+
         private void AttackCompleted()
         {
             board.CheckForDeadPieces();
@@ -62,8 +62,23 @@ namespace Game.Statemachine.States
 
         private void AttackAndDeathCompleted()
         {
+            StartCoroutine(EndEncounterRoutine());
+        }
+
+        IEnumerator EndEncounterRoutine()
+        {
             if (board.DidAnyPlayerLose())
             {
+                yield return new WaitForSeconds(0.5f);
+                if(board.DidPlayerLose())
+                {
+                    gameloop.popup.ShowPopup("Game Over, you Lose this round!");
+                }
+                else
+                {
+                    gameloop.popup.ShowPopup("Game Over, you Win this round!");
+                }
+                yield return new WaitForSeconds(1.5f);
                 stateMachine.SetState(stateMachine.GameDestructionState);
             }
             else
@@ -82,7 +97,7 @@ namespace Game.Statemachine.States
 
         }
 
-      
+
     }
 
 }
