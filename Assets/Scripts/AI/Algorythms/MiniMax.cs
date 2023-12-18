@@ -93,67 +93,17 @@ namespace DefaultNamespace.AI.Algorythms
         
         private static int Evaluate(BoardSimulation board)
         {
-            int playerScore = CalculatePlayerScore(board.PlayerPieces);
-            int aiScore = CalculateAIScore(board.AIPieces);
+            int playerScore = SimulationScoringAlgorythms.CalculatePlayerScore(board.PlayerPieces);
+            int aiScore = SimulationScoringAlgorythms.CalculateAIScore(board.AIPieces);
 
-            int boardAdvantageFactor = CalculateBoardAdvantage(board);
-            int threatAssessmentFactor = CalculateThreatAssessment(board);
+            int boardAdvantageFactor = SimulationScoringAlgorythms.CalculateBoardAdvantage(board);
+            int threatAssessmentFactor =SimulationScoringAlgorythms. CalculateThreatAssessment(board);
 
             // Adjust weights based on the importance of different factors in your game
             return (playerScore - aiScore) + boardAdvantageFactor + threatAssessmentFactor;
         }
         
-        private static int CalculateBoardAdvantage(BoardSimulation board)
-        {
-            int playerBoardValue = CalculateBoardValue(board.PlayerPieces);
-            int aiBoardValue = CalculateBoardValue(board.AIPieces);
-
-            // Weighted difference in board advantage
-            return (playerBoardValue - aiBoardValue) * 2;
-        }
-
-        private static int CalculateBoardValue(List<PieceSimulation> pieces)
-        {
-            // Calculate the value of the board based on the sum of health and attack of all pieces
-            return pieces.Sum(p => (p.Health + p.Attack));
-        }
-
-        private static int CalculateThreatAssessment(BoardSimulation board)
-        {
-            int playerThreatValue = CalculateThreatValue(board.PlayerPieces);
-            int aiThreatValue = CalculateThreatValue(board.AIPieces);
-
-            // Weighted difference in threat assessment
-            return (playerThreatValue - aiThreatValue);
-        }
-
-        private static int CalculateThreatValue(List<PieceSimulation> pieces)
-        {
-            // Calculate the threat value based on the sum of attack values of all pieces
-            return pieces.Sum(p => p.Attack);
-        }
-
-        private static int CalculatePlayerScore(List<PieceSimulation> pieces)
-        {
-            return pieces.Sum(p => (p.Health - p.Attack) * WeightedValueForPlayer(p.PieceType));
-        }
-
-        private static int CalculateAIScore(List<PieceSimulation> pieces)
-        {
-            return pieces.Sum(p => (p.Health - p.Attack) * WeightedValueForAI(p.PieceType));
-        }
-
-        private static int WeightedValueForPlayer(PieceType pieceType)
-        {
-            // You can adjust these weights based on the importance of health, attack, and other factors
-            return pieceType == PieceType.Player ? 1 : 1;
-        }
-
-        private static int WeightedValueForAI(PieceType pieceType)
-        {
-            // You can adjust these weights based on the importance of health, attack, and other factors
-            return pieceType == PieceType.AIPiece ? 1 : 1;
-        }
+       
     }
     
 }

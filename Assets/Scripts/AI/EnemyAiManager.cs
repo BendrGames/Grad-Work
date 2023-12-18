@@ -21,6 +21,9 @@ namespace DefaultNamespace.AI
             behaviours.Add(AItypes.AIRandomAAttackAndHealthT, new AIRandomAAttackAndHealthT());
             behaviours.Add(AItypes.AIRandomADangerEvalT, new AIRandomADangerEvalT());
             behaviours.Add(AItypes.AIMiniMaxBehaviour, new AiMiniMaxBehaviour());
+            behaviours.Add(AItypes.AIStraightAheadBehaviour, new AIStraightAheadBehaviour());
+            behaviours.Add(AItypes.AIMCTSBehaviour, new AIMCTSBehaviour());
+            
         }
         
         public AIBehaviourBase SetRandomBehaviour()
@@ -83,5 +86,7 @@ namespace DefaultNamespace.AI
         AIRandomAAttackAndHealthT,
         AIRandomADangerEvalT,
         AIMiniMaxBehaviour,
+        AIStraightAheadBehaviour,
+        AIMCTSBehaviour,
     }
 }

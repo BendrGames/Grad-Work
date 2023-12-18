@@ -24,6 +24,10 @@ public class QuestionaireState : MonoBehaviour, IState
         gameloop.sliderViewDifficulty.SetNumber(5);
         gameloop.sliderViewFun.SetNumber(5);
         gameloop.sliderViewRealism.SetNumber(5);
+        gameloop.sliderViewAiComplexity.SetNumber(5);
+        // gameloop.stringGuess.SetInputFieldText("What kind of AI am I?");
+        gameloop.stringGuess.setFunnyAiGuess();
+        gameloop.stringGuess.resetValueChanged();
     }
 
     public void OnExitState()
@@ -54,6 +58,8 @@ public class QuestionaireState : MonoBehaviour, IState
         data.AddData(gameloop.sliderViewDifficulty.GetNumber());
         data.AddData(gameloop.sliderViewFun.GetNumber());
         data.AddData(gameloop.sliderViewRealism.GetNumber());
+        data.AddData(gameloop.sliderViewAiComplexity.GetNumber());
+        data.AddData(gameloop.stringGuess.GetInputFieldTextIfValueChanged());
         
         gameloop.DataCollection.Add(data);
 

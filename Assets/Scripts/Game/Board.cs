@@ -1,5 +1,6 @@
 using Data;
 using DefaultNamespace;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -159,6 +160,21 @@ namespace Game
             {
                 return false;
             }
+        }
+
+        public bool isPlayerPieceInFrontOfMe(PieceView AttackingPiece, out PieceView foundPlayerPiece)
+        {
+            float TOLERANCE = 0.2f;
+            foreach (PieceView playerPiece in PlayerPieces)
+            {
+                if (Math.Abs(AttackingPiece.transform.position.x - playerPiece.transform.position.x) < TOLERANCE)
+                {
+                    foundPlayerPiece = playerPiece;
+                    return true;
+                }
+            }
+            foundPlayerPiece = null;
+            return false;
         }
     }
     

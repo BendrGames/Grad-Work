@@ -25,6 +25,8 @@ public class Gameloop : SingletonMonoBehaviour<Gameloop>
     public SliderView sliderViewDifficulty;
     public SliderView sliderViewFun;
     public SliderView sliderViewRealism;
+    public SliderView sliderViewAiComplexity;
+    public TextBoxView stringGuess;
     public Button DoneButton;
     
     [Header("QuestionScreen")]

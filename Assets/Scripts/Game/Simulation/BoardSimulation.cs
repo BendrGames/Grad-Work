@@ -10,10 +10,13 @@ namespace Game.Simulation
         public List<PieceSimulation> PlayerPieces;
         public List<PieceSimulation> AIPieces;
 
+        private bool enemyTurn;
+
         public BoardSimulation(Board board)
         {
             PlayerPieces = new List<PieceSimulation>();
             AIPieces = new List<PieceSimulation>();
+            isPlayerTurn = false; // Start with player's turn
 
             CreateSimulatedCopy(board);
         }
@@ -22,6 +25,7 @@ namespace Game.Simulation
         {
             PlayerPieces = new List<PieceSimulation>();
             AIPieces = new List<PieceSimulation>();
+            isPlayerTurn = board.isPlayerTurn; // Copy the turn indicator
 
             CreateSimulatedCopy(board);
         }
@@ -140,6 +144,24 @@ namespace Game.Simulation
             {
                 AIPieces.Add(piece);
             }
+        }
+        public object GetCurrentPlayerTurn()
+        {
+            throw new NotImplementedException();
+        }
+        
+        private bool isPlayerTurn; // true for player's turn, false for AI's turn
+
+        // ... other members and methods ...
+
+        public bool IsPlayerTurn()
+        {
+            return isPlayerTurn;
+        }
+
+        public void SwitchTurn()
+        {
+            isPlayerTurn = !isPlayerTurn;
         }
     }
 }
