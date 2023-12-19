@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afcee7e3ec071884e84652d52fcc911f, type: 3}
-  m_Name: jasper
+  m_Name: 7M8A6H
   m_EditorClassIdentifier: 
-  pieceName: Wolf
-  image: {fileID: 21300000, guid: 7e1513d5fede76b49a177604efe31592, type: 3}
-  attack: 4
-  health: 4
+  pieceName: Mace Ogre
+  image: {fileID: 21300000, guid: 3ed0f7e989822e9458f51c10db52b64e, type: 3}
+  attack: 8
+  health: 6

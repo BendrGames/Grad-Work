@@ -46,15 +46,9 @@ public class QuestionaireState : MonoBehaviour, IState
         DataCollection data = new();
         // List <string> data = new List<string>();
         data.AddData(currentAI);
-        if (gameloop.wonLastCombat)
-        {
-            data.AddData("1");
-        }
-        else
-        {
-            data.AddData("0");
-        }
-      
+        
+        data.AddData(gameloop.gameOutcome.ToString());
+
         data.AddData(gameloop.sliderViewDifficulty.GetNumber());
         data.AddData(gameloop.sliderViewFun.GetNumber());
         data.AddData(gameloop.sliderViewRealism.GetNumber());

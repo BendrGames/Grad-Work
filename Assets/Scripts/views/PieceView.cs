@@ -42,7 +42,7 @@ public class PieceView : MonoBehaviour
         this.pieceName = pieceData.pieceName;
         this.pieceType = pieceType;
         this.attack = pieceData.attack;
-        this.health = pieceData.health;
+        this.health = pieceData.health ;
 
         // spriteRenderer.sprite = pieceData.image;
         if (pieceType == PieceType.Player)
@@ -58,8 +58,8 @@ public class PieceView : MonoBehaviour
         
         nameText.text = pieceData.pieceName;
         spriteRenderer.sprite = pieceData.image;
-        attackText.text = pieceData.attack.ToString();
-        healthText.text = pieceData.health.ToString();
+        attackText.text = attack.ToString();
+        healthText.text = health.ToString();
 
         originalPos = this.transform.position;
     }

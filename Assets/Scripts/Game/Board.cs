@@ -10,23 +10,25 @@ namespace Game
     public class Board : MonoBehaviour
     {
         public PieceView pieceprefab;
-        
+
         [FormerlySerializedAs("Playerpieces")]
         public List<PieceView> PlayerPieces;
         [FormerlySerializedAs("AIPieces")]
         public List<PieceView> EnemyPieces;
-        
+
         [Header("positioning")]
         public float middleSepperation;
         public float DistanceBetweenPieces;
-        
+
         Vector3 BoardCenter = Vector3.zero;
 
         [SerializeField]
         private int piecestoSpawn = 5;
-        
+
         [SerializeField]
         private PieceDataList pieceDataList;
+        
+        
 
         public List<PieceData> SelectPiecesToPlay()
         {
@@ -40,7 +42,7 @@ namespace Game
                 temp.AddRange(pieceDataList.pieceList);
                 temp.Shuffle();
 
-                return temp.Take(5).ToList();
+                return temp.Take(piecestoSpawn).ToList();
             }
             else
             {
@@ -53,17 +55,17 @@ namespace Game
             List<PieceData> data = SelectPiecesToPlay();
             List<PieceData> playerdataSpawns = new();
             List<PieceData> AIdataSpawns = new();
-            
+
             playerdataSpawns.AddRange(data);
             playerdataSpawns.Shuffle();
             AIdataSpawns.AddRange(data);
             AIdataSpawns.Shuffle();
 
-            
+
             Vector3 playerStartPos = BoardCenter + new Vector3(0, 0, middleSepperation);
             Vector3 AIStartPos = BoardCenter + new Vector3(0, 0, -middleSepperation);
-            
-            int middleIndex = piecestoSpawn / 2;  // Assuming piecestoSpawn is an odd number
+
+            int middleIndex = piecestoSpawn / 2; // Assuming piecestoSpawn is an odd number
 
             for (int i = 0; i < piecestoSpawn; i++)
             {
@@ -82,7 +84,7 @@ namespace Game
                 EnemyPieces.Add(AIPiece);
             }
         }
-        
+
         public void DestroyBoard()
         {
             foreach (PieceView piece in PlayerPieces)
@@ -101,12 +103,11 @@ namespace Game
         {
             if (PlayerPieces.Count == 0)
             {
-                Gameloop.Instance.wonLastCombat = false;
+
                 return true;
             }
-             if (EnemyPieces.Count == 0)
+            if (EnemyPieces.Count == 0)
             {
-                Gameloop.Instance.wonLastCombat = true;
                 return true;
             }
             else
@@ -136,7 +137,7 @@ namespace Game
                 {
                     RemovePieceFromAlivePieces(piece);
                     piece.PieceDeath();
-                    
+
                 }
             }
             for (int index = EnemyPieces.Count - 1; index >= 0; index--)
@@ -146,21 +147,30 @@ namespace Game
                 {
                     RemovePieceFromAlivePieces(piece);
                     piece.PieceDeath();
-                  
+
                 }
             }
         }
-        public bool DidPlayerLose()
+        public GameOutCome CheckWhoLost()
         {
-            if (PlayerPieces.Count == 0)
+            if (PlayerPieces.Count == 0 && EnemyPieces.Count == 0)
             {
-                Gameloop.Instance.wonLastCombat = false;
-                return true;
+                Gameloop.Instance.gameOutcome = GameOutCome.Draw;;
+                return GameOutCome.Draw;
+            }
+            else if (PlayerPieces.Count == 0)
+            {
+                Gameloop.Instance.gameOutcome = GameOutCome.AIWon;;
+                return GameOutCome.AIWon;
             }
             else
             {
-                return false;
+                Gameloop.Instance.gameOutcome = GameOutCome.PlayerWon;;
+                return GameOutCome.PlayerWon;
             }
+
+
+
         }
 
         public bool isPlayerPieceInFrontOfMe(PieceView AttackingPiece, out PieceView foundPlayerPiece)
@@ -177,7 +187,10 @@ namespace Game
             foundPlayerPiece = null;
             return false;
         }
+
     }
-    
-    
+
+    public enum GameOutCome { PlayerWon, AIWon, Draw }
+
+
 }

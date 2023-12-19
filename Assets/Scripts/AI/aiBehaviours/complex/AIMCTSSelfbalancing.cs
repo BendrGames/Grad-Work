@@ -1,25 +1,30 @@
-using DefaultNamespace.AI.Algorythms;
-using DefaultNamespace.AI.Algorythms.MCTS;
-using DefaultNamespace.AI.Algorythms.MCTStry3;
 using Game;
-using Game.Simulation;
 using GameAI.Algorithms;
 using GameAI.Algorithms.MonteCarlo;
 using System;
 using System.Collections.Generic;
 namespace DefaultNamespace.AI.aiBehaviours.complex
 {
-    public class AIMCTSBehaviour : AIBehaviourBase
+    public class AIMCTSSelfbalancing: AIBehaviourBase
     {
 
         public override Tuple<PieceView, PieceView> FindTarget(Board board, List<PieceView> enemyPieces, List<PieceView> playerPieces)
         {
            
-         ChipCombatGameWinner ChipCombatsimulation = new(board);
+            ChipCombatGameWinner ChipCombatsimulation = new(board);
 
-            Tuple<string, string> bestmove = 
-                RandomSimulation<ChipCombatGameWinner, Tuple<string, string>, ChipCombatGameWinner.ChipPlayer>
-                    .ParallelSearch(ChipCombatsimulation, 10000);
+            Tuple<string, string> bestmove = null;
+            if (enemyPieces.Count < playerPieces.Count)
+            {
+                bestmove = RandomSimulation<ChipCombatGameWinner, Tuple<string, string>, ChipCombatGameWinner.ChipPlayer>
+                    .ParallelSearch(ChipCombatsimulation, EnemyAiManager.DeepSearchIterationMultiplyer * (enemyPieces.Count + playerPieces.Count));
+            }
+            else
+            {
+                bestmove = RandomSimulation<ChipCombatGameWinner, Tuple<string, string>, ChipCombatGameWinner.ChipPlayer>
+                    .ParallelSearch(ChipCombatsimulation, EnemyAiManager.UndeepSearchIterationMultiplyer * (enemyPieces.Count + playerPieces.Count));
+            }
+            
 
 
             PieceView attackingPiece = null;

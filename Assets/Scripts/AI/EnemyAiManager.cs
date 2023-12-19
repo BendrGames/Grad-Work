@@ -10,23 +10,28 @@ namespace DefaultNamespace.AI
     {
         Dictionary<AItypes, AIBehaviourBase> behaviours = new();
         private List<AItypes> AllreadyTestedBehviours = new();
-        
+
         private AItypes currentBehaviourtype;
         private AIBehaviourBase currentBehaviour;
-      
+        
+        public static int DeepSearchIterationMultiplyer = 500;
+        public static int UndeepSearchIterationMultiplyer = 5;
+
         public EnemyAiManager()
         {
             behaviours.Add(AItypes.AiRandomBehaviour, new AiRandomBehaviour());
-            behaviours.Add(AItypes.AiRandomALowestHealthT, new AiRandomALowestHealthT());
+            behaviours.Add(AItypes.AIStraightAhead, new AIStraightAheadBehaviour());
+            
+            behaviours.Add(AItypes.AiLowestHealthTBestAttacker, new AiLowestHealthTBestAttacker());
             behaviours.Add(AItypes.AIRandomAAttackAndHealthT, new AIRandomAAttackAndHealthT());
             behaviours.Add(AItypes.AIRandomADangerEvalT, new AIRandomADangerEvalT());
-            behaviours.Add(AItypes.AIMiniMaxBehaviour, new AiMiniMaxBehaviour());
-            behaviours.Add(AItypes.AIStraightAheadBehaviour, new AIStraightAheadBehaviour());
-            behaviours.Add(AItypes.AIMCTSBehaviourWinner, new AIMCTSBehaviour());
             
+            behaviours.Add(AItypes.AIMCTSDeepWin, new AIMCTSDeepWinBehaviour());
+            behaviours.Add(AItypes.AIMCTSWin, new AIMCTSWinBehaviour());
+            behaviours.Add(AItypes.AIMCTSSelfBalancing, new AIMCTSSelfbalancing());
         }
-        
-        public AIBehaviourBase SetRandomBehaviour()
+
+        public void SetRandomBehaviour()
         {
             int random = Random.Range(0, behaviours.Count);
             KeyValuePair<AItypes, AIBehaviourBase> randomentry = GetRandomEntry(behaviours);
@@ -34,38 +39,55 @@ namespace DefaultNamespace.AI
             AllreadyTestedBehviours.Add(randomentry.Key);
             currentBehaviourtype = randomentry.Key;
             currentBehaviour = randomentry.Value;
-            return randomentry.Value;
+            
+            Debug.Log(currentBehaviour + " Not removing though" );
+            
+           
         }
         
+        public void SetRandomBehaviourAndRemove()
+        {
+            int random = Random.Range(0, behaviours.Count);
+            KeyValuePair<AItypes, AIBehaviourBase> randomentry = GetRandomEntry(behaviours);
+
+            AllreadyTestedBehviours.Add(randomentry.Key);
+            currentBehaviourtype = randomentry.Key;
+            currentBehaviour = randomentry.Value;
+            
+            Debug.Log(currentBehaviour);
+            
+            behaviours.Remove(randomentry.Key);
+        }
+
         public AIBehaviourBase SetSpecificBehaviour(AItypes type)
         {
             currentBehaviourtype = type;
             currentBehaviour = behaviours[type];
             return behaviours[type];
         }
-        
+
 
         public bool IsTestedAllBehaviours()
         {
             return behaviours.Count == AllreadyTestedBehviours.Count;
 
         }
-        
+
         public string GetCurrentBehaviourString()
         {
             return currentBehaviour.ToString();
         }
-        
+
         public AItypes GetCurrentBehaviourType()
         {
             return currentBehaviourtype;
         }
-        
+
         public AIBehaviourBase GetCurrentBehaviour()
         {
             return currentBehaviour;
         }
-        
+
         KeyValuePair<TKey, TValue> GetRandomEntry<TKey, TValue>(Dictionary<TKey, TValue> dictionary)
         {
             // Convert dictionary to a list of key-value pairs
@@ -78,16 +100,17 @@ namespace DefaultNamespace.AI
             return list[randomIndex];
         }
     }
-    
+
     public enum AItypes
     {
         AiRandomBehaviour,
-        AiRandomALowestHealthT,
+        AiLowestHealthTBestAttacker,
         AIRandomAAttackAndHealthT,
         AIRandomADangerEvalT,
-        AIMiniMaxBehaviour,
-        AIStraightAheadBehaviour,
-        AIMCTSBehaviourWinner,
-        AIMCTSBehaviourWinnerOrDraw,
+        AIStraightAhead,
+        AIMCTSDeepWin,
+        AIMCTSWin,
+        AIMCTSSelfBalancing,
+
     }
 }

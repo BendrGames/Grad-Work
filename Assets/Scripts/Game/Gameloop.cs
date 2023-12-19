@@ -45,7 +45,10 @@ public class Gameloop : SingletonMonoBehaviour<Gameloop>
     public TutorialSequence StartGameSequence;
 
     [HideInInspector]
-    public bool wonLastCombat = false;
+    public GameOutCome gameOutcome = GameOutCome.Draw;
+    
+    
+    public bool IsFirstCombat = true;
 
     
     public MCTS MCTSRunner; 

@@ -72,13 +72,19 @@ namespace Game.Statemachine.States
             if (board.DidAnyPlayerLose())
             {
                 yield return new WaitForSeconds(0.5f);
-                if(board.DidPlayerLose())
+                switch (board.CheckWhoLost())
                 {
-                    gameloop.popup.ShowPopup("Game Over, you Lose this round!");
-                }
-                else
-                {
-                    gameloop.popup.ShowPopup("Game Over, you Win this round!");
+                    case GameOutCome.PlayerWon:
+                        gameloop.popup.ShowPopup("Game Over, you Win this round!");
+                        break;
+                    case GameOutCome.AIWon:
+                        gameloop.popup.ShowPopup("Game Over, you Lose this round!");
+                        break;
+                    case GameOutCome.Draw:
+                        gameloop.popup.ShowPopup("Game Over, it's a draw!");
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
                 yield return new WaitForSeconds(1.5f);
                 stateMachine.SetState(stateMachine.GameDestructionState);

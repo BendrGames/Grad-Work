@@ -1538,8 +1538,7 @@ MonoBehaviour:
     meat
   - '"Wait im supposed to be thinking about what the AI is Doing???"'
   - Where am i, what day is this.
-  - The AI Used a Combination of GOAP, Descision Trees, combined with a A* algorythm
-    and and ofcourse Pancakes.
+  - The AI Used a Combination of GOAP, Descision Trees, A* Pathfinding and some ham.
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1594,7 +1593,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5120,7 +5119,22 @@ PrefabInstance:
     - target: {fileID: 5313367412521488152, guid: 80d0e1349bbd60448a673dbdfe907ec8,
         type: 3}
       propertyPath: m_text
-      value: Did you enjoy fighting against this AI
+      value: Did you enjoy fighting against this AI?
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313367412521488152, guid: 80d0e1349bbd60448a673dbdfe907ec8,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313367412521488152, guid: 80d0e1349bbd60448a673dbdfe907ec8,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313367412521488152, guid: 80d0e1349bbd60448a673dbdfe907ec8,
+        type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80d0e1349bbd60448a673dbdfe907ec8, type: 3}
@@ -5272,7 +5286,7 @@ PrefabInstance:
     - target: {fileID: 5313367412521488152, guid: 80d0e1349bbd60448a673dbdfe907ec8,
         type: 3}
       propertyPath: m_text
-      value: Did the AI feel real
+      value: Did the AI feel real/lifelike?
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80d0e1349bbd60448a673dbdfe907ec8, type: 3}
@@ -5500,7 +5514,7 @@ PrefabInstance:
     - target: {fileID: 5313367412521488152, guid: 80d0e1349bbd60448a673dbdfe907ec8,
         type: 3}
       propertyPath: m_text
-      value: How Complex do u think the AI Is
+      value: How Complex do u think the AI Is?
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80d0e1349bbd60448a673dbdfe907ec8, type: 3}
@@ -5958,7 +5972,7 @@ MonoBehaviour:
   pieceprefab: {fileID: 1421263037799198314, guid: ec93027e5f4495c4abaa1c396435201b,
     type: 3}
   PlayerPieces: []
-  AIPieces: []
+  EnemyPieces: []
   middleSepperation: 3
   DistanceBetweenPieces: 3
   piecestoSpawn: 5
@@ -6416,7 +6430,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: If u had to guess, how did the AI Work?
+  m_text: If u had to guess, how did this AI Work?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7372,7 +7386,8 @@ MonoBehaviour:
   enemyAIButton: {fileID: 198984606}
   popup: {fileID: 7100341}
   StartGameSequence: {fileID: 1054970354}
-  wonLastCombat: 0
+  gameOutcome: 2
+  IsFirstCombat: 0
 --- !u!4 &1914139491
 Transform:
   m_ObjectHideFlags: 0
@@ -7865,6 +7880,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313367412521488152, guid: 80d0e1349bbd60448a673dbdfe907ec8,
+        type: 3}
+      propertyPath: m_text
+      value: How difficulty was this AI to fight?
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313367412521488152, guid: 80d0e1349bbd60448a673dbdfe907ec8,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 20.85
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80d0e1349bbd60448a673dbdfe907ec8, type: 3}

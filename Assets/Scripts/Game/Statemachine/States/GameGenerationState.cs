@@ -9,10 +9,10 @@ public class GameGenerationState : MonoBehaviour, IState
     private Board board;
     private Gameloop gameloop;
     private SimpleStateMachine stateMachine;
-   
+
     private void Awake()
     {
-         gameloop = Gameloop.Instance;
+        gameloop = Gameloop.Instance;
         board = gameloop.Board;
         stateMachine = gameloop.stateMachine;
     }
@@ -20,27 +20,36 @@ public class GameGenerationState : MonoBehaviour, IState
     public void OnEnterState()
     {
         board.GenerateBoard();
-        
-        // gameloop.enemyAiManager.SetRandomBehaviour();
-        
-        gameloop.enemyAiManager.SetSpecificBehaviour(AItypes.AIMCTSBehaviourWinner);
-        
+
+        if (gameloop.IsFirstCombat)
+        {
+            gameloop.enemyAiManager.SetRandomBehaviour();
+        }
+        else
+        {
+            gameloop.enemyAiManager.SetRandomBehaviourAndRemove();
+        }
+
+
+        // gameloop.enemyAiManager.SetSpecificBehaviour(AItypes.AIMCTSWin);
+
         stateMachine.SetState(stateMachine.GameEnemyAIState);
+        // stateMachine.SetState(stateMachine.GamePlayerState);
     }
     public void OnExitState()
     {
-    
+
     }
 
     //enemyTurn
-    
+
     public void UpdateState()
     {
-       
+
     }
-    
+
     public void ContinueButtonClocked()
     {
-            
+
     }
 }
