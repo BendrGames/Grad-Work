@@ -8,8 +8,8 @@ namespace DefaultNamespace.AI.aiBehaviours
 
         public override Tuple<PieceView, PieceView> FindTarget(Board board, List<PieceView> enemyPieces, List<PieceView> playerPieces)
         {
-            List<PieceView> tempenemyPieces = new List<PieceView>(enemyPieces);
-            List<PieceView> tempPlayerPieces = new List<PieceView>(playerPieces);
+            List<PieceView> tempenemyPieces = new(enemyPieces);
+            List<PieceView> tempPlayerPieces = new(playerPieces);
             
             tempenemyPieces.Shuffle();
             tempPlayerPieces.Shuffle();

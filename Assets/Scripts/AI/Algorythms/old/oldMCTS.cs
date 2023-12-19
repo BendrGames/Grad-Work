@@ -17,7 +17,7 @@ namespace DefaultNamespace.AI.Algorythms
 
         public Tuple<PieceSimulation, PieceSimulation> FindBestMove(BoardSimulation board)
         {
-            oldMCTSNode root = new oldMCTSNode(board);
+            oldMCTSNode root = new(board);
 
             for (int i = 0; i < simulationsPerMove; i++)
             {
@@ -95,7 +95,7 @@ namespace DefaultNamespace.AI.Algorythms
         private int Simulation(oldMCTSNode node)
         {
             // Perform alternating turn simulation from the current state
-            BoardSimulation simulatedBoard = new BoardSimulation(node.Board);
+            BoardSimulation simulatedBoard = new(node.Board);
             AlternatingSimulation(simulatedBoard);
             int result = Evaluate(simulatedBoard);
 
@@ -105,7 +105,7 @@ namespace DefaultNamespace.AI.Algorythms
             // Evaluate the simulated board and return a result
         }
 
-        private Random random = new Random();
+        private Random random = new();
 
         private void AlternatingSimulation(BoardSimulation board)
         {
@@ -160,7 +160,7 @@ namespace DefaultNamespace.AI.Algorythms
             bool isPlayerTurn = node.Board.IsPlayerTurn();
 
             // Filter possible moves based on the current player's turn
-            List<Tuple<PieceSimulation, PieceSimulation>> filteredMoves = new List<Tuple<PieceSimulation, PieceSimulation>>();
+            List<Tuple<PieceSimulation, PieceSimulation>> filteredMoves = new();
             foreach (var move in node.PossibleMoves)
             {
                 bool isValidMove = (move.Item1.PieceType == PieceType.AIPiece && move.Item2.PieceType == PieceType.Player && !isPlayerTurn) ||
@@ -226,5 +226,5 @@ public class TupleComparer : IEqualityComparer<Tuple<PieceSimulation, PieceSimul
     }
 
     // Singleton instance of the comparer
-    public static TupleComparer Default{ get; } = new TupleComparer();
+    public static TupleComparer Default{ get; } = new();
 }

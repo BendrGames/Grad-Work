@@ -22,7 +22,7 @@ namespace DefaultNamespace.ExcelWriting
             string filePath = Path.Combine(folderPath, "DataList.csv");
 
             // Create or overwrite the CSV file
-            using (StreamWriter writer = new StreamWriter(filePath))
+            using (StreamWriter writer = new(filePath))
             {
                 // Write header row
                 for (int i = 0; i < dataList.Count; i++)

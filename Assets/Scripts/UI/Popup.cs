@@ -14,21 +14,21 @@ namespace DefaultNamespace.UI
         private TextMeshProUGUI textField;
 
 
-        public void ShowPopup(string newText)
+        public void ShowPopup(string newText, float time = GlobalPopupTime)
         {
             // If a popup is already active, close it and open the new one
             if (isPopupActive)
             {
-                ClosePopup(() => OpenPopup(newText));
+                ClosePopup(() => OpenPopup(newText, time));
             }
             else
             {
                 // If no popup is active, open one
-                OpenPopup(newText);
+                OpenPopup(newText, time);
             }
         }
 
-        private void OpenPopup(string newText)
+        private void OpenPopup(string newText, float time)
         {
             // Set the text field content
             textField.text = newText;
@@ -40,7 +40,7 @@ namespace DefaultNamespace.UI
                 {
                     isPopupActive = true;
                     // Start a coroutine to automatically close the popup after the global popup time
-                    StartCoroutine(AutoCloseCoroutine());
+                    StartCoroutine(AutoCloseCoroutine(time));
                 });
         }
 
@@ -60,10 +60,10 @@ namespace DefaultNamespace.UI
                 });
         }
 
-        private IEnumerator AutoCloseCoroutine()
+        private IEnumerator AutoCloseCoroutine(float time)
         {
             // Wait for the global popup time
-            yield return new WaitForSeconds(GlobalPopupTime);
+            yield return new WaitForSeconds(time);
 
             // Close the popup after the global popup time
             ClosePopup();

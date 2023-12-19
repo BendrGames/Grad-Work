@@ -13,7 +13,8 @@ namespace Game
         
         [FormerlySerializedAs("Playerpieces")]
         public List<PieceView> PlayerPieces;
-        public List<PieceView> AIPieces;
+        [FormerlySerializedAs("AIPieces")]
+        public List<PieceView> EnemyPieces;
         
         [Header("positioning")]
         public float middleSepperation;
@@ -35,7 +36,7 @@ namespace Game
             }
             if (piecestoSpawn <= pieceDataList.pieceList.Count)
             {
-                List<PieceData> temp = new List<PieceData>();
+                List<PieceData> temp = new();
                 temp.AddRange(pieceDataList.pieceList);
                 temp.Shuffle();
 
@@ -50,8 +51,8 @@ namespace Game
         public void GenerateBoard()
         {
             List<PieceData> data = SelectPiecesToPlay();
-            List<PieceData> playerdataSpawns = new List<PieceData>();
-            List<PieceData> AIdataSpawns = new List<PieceData>();
+            List<PieceData> playerdataSpawns = new();
+            List<PieceData> AIdataSpawns = new();
             
             playerdataSpawns.AddRange(data);
             playerdataSpawns.Shuffle();
@@ -78,7 +79,7 @@ namespace Game
                 AIPiece.initializePiece(AIdataSpawns[i], PieceType.AIPiece);
 
                 PlayerPieces.Add(playerPiece);
-                AIPieces.Add(AIPiece);
+                EnemyPieces.Add(AIPiece);
             }
         }
         
@@ -88,12 +89,12 @@ namespace Game
             {
                 Destroy(piece.gameObject);
             }
-            foreach (PieceView piece in AIPieces)
+            foreach (PieceView piece in EnemyPieces)
             {
                 Destroy(piece.gameObject);
             }
             PlayerPieces.Clear();
-            AIPieces.Clear();
+            EnemyPieces.Clear();
         }
 
         public bool DidAnyPlayerLose()
@@ -103,7 +104,7 @@ namespace Game
                 Gameloop.Instance.wonLastCombat = false;
                 return true;
             }
-             if (AIPieces.Count == 0)
+             if (EnemyPieces.Count == 0)
             {
                 Gameloop.Instance.wonLastCombat = true;
                 return true;
@@ -123,7 +124,7 @@ namespace Game
             }
             else if (currentarget.pieceType == PieceType.AIPiece)
             {
-                AIPieces.Remove(currentarget);
+                EnemyPieces.Remove(currentarget);
             }
         }
         public void CheckForDeadPieces()
@@ -138,9 +139,9 @@ namespace Game
                     
                 }
             }
-            for (int index = AIPieces.Count - 1; index >= 0; index--)
+            for (int index = EnemyPieces.Count - 1; index >= 0; index--)
             {
-                PieceView piece = AIPieces[index];
+                PieceView piece = EnemyPieces[index];
                 if (piece.health <= 0)
                 {
                     RemovePieceFromAlivePieces(piece);

@@ -23,7 +23,7 @@ public class GameGenerationState : MonoBehaviour, IState
         
         // gameloop.enemyAiManager.SetRandomBehaviour();
         
-        gameloop.enemyAiManager.SetSpecificBehaviour(AItypes.AIMiniMaxBehaviour);
+        gameloop.enemyAiManager.SetSpecificBehaviour(AItypes.AIMCTSBehaviourWinner);
         
         stateMachine.SetState(stateMachine.GameEnemyAIState);
     }

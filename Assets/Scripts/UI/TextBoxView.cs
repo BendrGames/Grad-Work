@@ -12,7 +12,7 @@ namespace DefaultNamespace.UI
         private TMP_InputField inputField;
 
         [SerializeField]
-        private List<string> funnyAiGuesses = new List<string>();
+        private List<string> funnyAiGuesses = new();
         bool valuechanged = false;
 
         private void Start()

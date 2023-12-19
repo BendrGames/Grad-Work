@@ -1,4 +1,7 @@
+using DefaultNamespace.AI.Algorythms.MCTStry3;
+using GameAI.Algorithms.MonteCarlo;
 using System;
+using System.Linq;
 using UnityEngine;
 namespace Game.Statemachine.States
 {
@@ -30,10 +33,16 @@ namespace Game.Statemachine.States
         {
             stateMachine.SetState(stateMachine.GameGenerationState);
             gameloop.StartGameSequence.TutorialCompleted -= UiSequenceDone;
+            
+           
+            
+          
         }
         public void OnExitState()
         {
             gameloop.StartGameSequence.gameObject.SetActive(false);
+            
+            
             // gameloop.StartScreen.SetActive(false);
         }
         public void UpdateState()

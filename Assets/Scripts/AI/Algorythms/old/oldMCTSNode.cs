@@ -35,7 +35,7 @@ namespace DefaultNamespace.AI.Algorythms
             // newBoard.SimulateMove(move.Item1, move.Item2);
 
             // Create a new child node representing the new board state
-            oldMCTSNode childNode = new oldMCTSNode(new BoardSimulation(Board), move, this);
+            oldMCTSNode childNode = new(new BoardSimulation(Board), move, this);
             Children.Add(childNode);
         }
 
@@ -44,7 +44,7 @@ namespace DefaultNamespace.AI.Algorythms
         {
             // Implement your logic to generate possible moves for the current board state
             // This could involve iterating over available pieces and possible targets
-            List<Tuple<PieceSimulation, PieceSimulation>> possibleMoves = new List<Tuple<PieceSimulation, PieceSimulation>>();
+            List<Tuple<PieceSimulation, PieceSimulation>> possibleMoves = new();
 
             // Placeholder logic; replace with your actual move generation
             foreach (var playerPiece in Board.PlayerPieces)

@@ -8,8 +8,8 @@ namespace DefaultNamespace.AI
 {
     public class EnemyAiManager
     {
-        Dictionary<AItypes, AIBehaviourBase> behaviours = new Dictionary<AItypes, AIBehaviourBase>();
-        private List<AItypes> AllreadyTestedBehviours = new List<AItypes>();
+        Dictionary<AItypes, AIBehaviourBase> behaviours = new();
+        private List<AItypes> AllreadyTestedBehviours = new();
         
         private AItypes currentBehaviourtype;
         private AIBehaviourBase currentBehaviour;
@@ -22,7 +22,7 @@ namespace DefaultNamespace.AI
             behaviours.Add(AItypes.AIRandomADangerEvalT, new AIRandomADangerEvalT());
             behaviours.Add(AItypes.AIMiniMaxBehaviour, new AiMiniMaxBehaviour());
             behaviours.Add(AItypes.AIStraightAheadBehaviour, new AIStraightAheadBehaviour());
-            behaviours.Add(AItypes.AIMCTSBehaviour, new AIMCTSBehaviour());
+            behaviours.Add(AItypes.AIMCTSBehaviourWinner, new AIMCTSBehaviour());
             
         }
         
@@ -69,7 +69,7 @@ namespace DefaultNamespace.AI
         KeyValuePair<TKey, TValue> GetRandomEntry<TKey, TValue>(Dictionary<TKey, TValue> dictionary)
         {
             // Convert dictionary to a list of key-value pairs
-            List<KeyValuePair<TKey, TValue>> list = new List<KeyValuePair<TKey, TValue>>(dictionary);
+            List<KeyValuePair<TKey, TValue>> list = new(dictionary);
 
             // Get a random index
             int randomIndex = Random.Range(0, list.Count);
@@ -87,6 +87,7 @@ namespace DefaultNamespace.AI
         AIRandomADangerEvalT,
         AIMiniMaxBehaviour,
         AIStraightAheadBehaviour,
-        AIMCTSBehaviour,
+        AIMCTSBehaviourWinner,
+        AIMCTSBehaviourWinnerOrDraw,
     }
 }

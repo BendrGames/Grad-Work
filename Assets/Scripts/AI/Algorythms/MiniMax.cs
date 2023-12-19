@@ -77,7 +77,7 @@ namespace DefaultNamespace.AI.Algorythms
         }
         private static List<Tuple<PieceSimulation, PieceSimulation>> GeneratePossibleMoves(BoardSimulation board)
         {
-            List<Tuple<PieceSimulation, PieceSimulation>> possiblemoves = new List<Tuple<PieceSimulation, PieceSimulation>>();
+            List<Tuple<PieceSimulation, PieceSimulation>> possiblemoves = new();
 
             foreach (PieceSimulation Epiecesim in board.AIPieces)
             {

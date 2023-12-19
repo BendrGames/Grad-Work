@@ -1,66 +1,167 @@
+using DG.Tweening;
 using Game.Simulation;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.Playables;
 namespace DefaultNamespace.AI.Algorythms.MCTS
 {
     public class MCTS
     {
         private Node root; // The root of the Monte Carlo Tree
 
-        public /*Tuple<PieceSimulation, PieceSimulation> */ void FindBestMove(BoardSimulation board, int depth)
-        {
-            root = new Node(board);
+        // private List<MCTSBoardSimulation> moveSequence;
 
-            for (int i = 0; i < depth; i++)
+        bool EnemyWinner = false;
+
+
+        // private IEnumerator RunForDuration(MCTSBoardSimulation board, float howLong)
+        // {
+        //     float startTime = Time.realtimeSinceStartup;
+        //
+        //     while (true)
+        //     {
+        //         float currentTime = Time.realtimeSinceStartup;
+        //         float elapsedTime = currentTime - startTime;
+        //
+        //         if (elapsedTime >= howLong)
+        //         {
+        //             break;
+        //         }
+        //
+        //         // Your coroutine logic goes here
+        //
+        //         Debug.Log($"Elapsed Time: {elapsedTime:F2} seconds");
+        //
+        //         yield return null; // Yielding null makes the coroutine wait for the next frame
+        //     }
+        //
+        //     Debug.Log("Coroutine finished");
+        // }
+
+        public Tuple<PieceSimulation, PieceSimulation> RunMCTSRoutine(MCTSBoardSimulation board)
+        {
+            for (int i = 0; i < 25; i++)
             {
-                Node selectedNode = Selection(root);
-
-                // Expansion
-                Node expandedNode = Expansion(selectedNode);
-
-                // Simulation
-                float simulationResult = Simulation(expandedNode);
-
-                // Backpropagation
-                Backpropagation(expandedNode, simulationResult);
+                MCTSiteration(board);
             }
-            
-            var bestChild = root.children.OrderByDescending(c => c.visits).FirstOrDefault();
 
-        }
-        
-        Node Selection(Node node)
-        {
-            // TODO: Implement selection logic to choose a node from the tree based on a selection policy
-            // Common policies include UCT (Upper Confidence Bound for Trees) or others.
-            return node;
+            return board.SelectMove(0);
         }
 
-        Node Expansion(Node node)
-        {
-            // TODO: Implement expansion logic to add a child node to the given node
-            // Expansion typically involves creating a new node representing a possible move and adding it to the tree.
-            return node;
-        }
 
-        float Simulation(Node node)
+        public void MCTSiteration(MCTSBoardSimulation board)
         {
-            // TODO: Implement simulation logic to estimate the value of the given node
-            // Simulation is often a random playout or a simple heuristic evaluation.
-            return 0.0f; // Placeholder value, replace with actual simulation result
-        }
 
-        void Backpropagation(Node node, float result)
-        {
-            // TODO: Implement backpropagation logic to update the statistics of nodes along the path
-            // Update visit count and win count based on the simulation result
-            while (node != null)
+            //selection
+            MCTSBoardSimulation current = board;
+            List<MCTSBoardSimulation> moveSequence = new();
+            moveSequence.Add(current);
+            while (current.FullyExplored())
             {
-                node.visits++;
-                node.wins += result;
-                node = node.parent; // Move up the tree
+                Tuple<PieceSimulation, PieceSimulation> move = current.SelectMove(1.4f);
+                current.MokeMoveNoSim(move);
+                moveSequence.Add(current);
+            }
+
+            //expansion
+            Tuple<PieceSimulation, PieceSimulation> move2 = current.ChooseUnexploredMove();
+            current.MokeMoveNoSim(move2);
+            moveSequence.Add(current);
+
+            //simulation
+            EnemyWinner = PlayOut(current);
+
+            //backpropagation
+            foreach (MCTSBoardSimulation sim in moveSequence)
+            {
+                if (current == sim)
+                {
+                    if (EnemyWinner == current.IsenemyTurn())
+                    {
+                        current.wins++;
+                    }
+                    current.playouts++;
+                }
             }
         }
-      
+
+        // private void Selection(MCTSBoardSimulation board)
+        // {
+        //     current = board;
+        //     moveSequence = new List<MCTSBoardSimulation>();
+        //     moveSequence.Add(current);
+        //
+        //
+        //     while (current.FullyExplored())
+        //     {
+        //         Tuple<PieceSimulation, PieceSimulation> move = current.SelectMove(1.4f);
+        //         current = current.MokeMove(move);
+        //         moveSequence.Add(current);
+        //     }
+        // }
+        //
+        // public void Expansion()
+        // {
+        //     Tuple<PieceSimulation, PieceSimulation> move = current.ChooseUnexploredMove();
+        //     current = current.MokeMove(move);
+        //     moveSequence.Add(current);
+        // }
+
+
+        // private bool PlayOut(MCTSBoardSimulation mctsBoardSimulation)
+        // {
+        //     
+        //     MCTSBoardSimulation board = new(mctsBoardSimulation, mctsBoardSimulation.IsenemyTurn());
+        //     
+        //     
+        //     while (!board.IsGameOver())
+        //     {
+        //         Tuple<PieceSimulation, PieceSimulation> move = mctsBoardSimulation.SelectMove(1.4f);
+        //
+        //         board = board.MokeMove(move);
+        //
+        //         board.SwitchTurn();
+        //         Debug.Log(board.IsenemyTurn());
+        //     }
+        //
+        //     return board.IsEnemyWinner();
+        // }
+
+        private bool PlayOut(MCTSBoardSimulation mctsBoardSimulation)
+        {
+            MCTSBoardSimulation board = new(mctsBoardSimulation, mctsBoardSimulation.IsenemyTurn());
+
+            bool IsGameOver = !board.IsGameOver();
+
+            while (IsGameOver)
+            {
+                Tuple<PieceSimulation, PieceSimulation> move = board.SelectMove(1.4f);
+
+                board.MokeMoveNoSim(move);
+
+                board.SwitchTurn();
+                Debug.Log(board.IsenemyTurn());
+            }
+
+            return board.IsEnemyWinner();
+        }
+
+        // void Backpropagation()
+        // {
+        //     foreach (MCTSBoardSimulation sim in moveSequence)
+        //     {
+        //         if (current == sim)
+        //         {
+        //             if (EnemyWinner == current.IsenemyTurn())
+        //             {
+        //                 current.wins++;
+        //             }
+        //             current.playouts++;
+        //         }
+        //     }
+        // }
+
     }
 }

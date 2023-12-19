@@ -19,7 +19,7 @@ namespace Game.Statemachine.States
 
         public void OnEnterState()
         {
-            gameloop.popup.ShowPopup("Enemy turn!");
+            gameloop.popup.ShowPopup("Enemy turn! AI Is Thinking", 2f);
             StartCoroutine(EnemyTurnRoutine());
         }
 
@@ -28,9 +28,11 @@ namespace Game.Statemachine.States
 
         public IEnumerator EnemyTurnRoutine()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
+            
+            Tuple<PieceView, PieceView> result = gameloop.enemyAiManager.GetCurrentBehaviour().FindTarget(board, board.EnemyPieces, board.PlayerPieces);
 
-            Tuple<PieceView, PieceView> result = gameloop.enemyAiManager.GetCurrentBehaviour().FindTarget(board, board.AIPieces, board.PlayerPieces);
+            yield return new WaitForSeconds(1.5f);
 
             attacker = result.Item1;
             target = result.Item2;

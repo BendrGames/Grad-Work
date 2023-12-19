@@ -307,10 +307,10 @@ namespace UnityEngine.UI.Extensions.FantasyRPG
 
                         Vector3[] verts = new Vector3[4]
                         {
-                            new Vector3(-size, -size, 0),
-                            new Vector3(-size, size, 0),
-                            new Vector3(size, size, 0),
-                            new Vector3(size, -size, 0)
+                            new(-size, -size, 0),
+                            new(-size, size, 0),
+                            new(size, size, 0),
+                            new(size, -size, 0)
                         };
 
                         Quaternion particleRotation = Quaternion.Euler(particle.rotation3D);

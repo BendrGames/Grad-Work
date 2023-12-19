@@ -12,7 +12,7 @@ namespace DefaultNamespace.AI.aiBehaviours.complex
         public override Tuple<PieceView, PieceView> FindTarget(Board board, List<PieceView> enemyPieces, List<PieceView> playerPieces)
         {
             // Convert the board to a simulated board
-            BoardSimulation simulatedBoard = new BoardSimulation(board);
+            BoardSimulation simulatedBoard = new(board);
 
             // Call the minimax function to find the best move
             int depth = 20; // Adjust the depth based on your game's complexity

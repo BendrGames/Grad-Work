@@ -1,6 +1,10 @@
 using DefaultNamespace.AI.Algorythms;
+using DefaultNamespace.AI.Algorythms.MCTS;
+using DefaultNamespace.AI.Algorythms.MCTStry3;
 using Game;
 using Game.Simulation;
+using GameAI.Algorithms;
+using GameAI.Algorithms.MonteCarlo;
 using System;
 using System.Collections.Generic;
 namespace DefaultNamespace.AI.aiBehaviours.complex
@@ -10,17 +14,20 @@ namespace DefaultNamespace.AI.aiBehaviours.complex
 
         public override Tuple<PieceView, PieceView> FindTarget(Board board, List<PieceView> enemyPieces, List<PieceView> playerPieces)
         {
-            BoardSimulation simulatedBoard = new BoardSimulation(board);
-            int simulationsPerMove = 200;
-            oldMCTS oldMcts = new oldMCTS(simulationsPerMove);
-            Tuple<PieceSimulation, PieceSimulation> result = oldMcts.FindBestMove(simulatedBoard);
+           
+         ChipCombatGameWinner ChipCombatsimulation = new(board);
+
+            Tuple<string, string> bestmove = 
+                RandomSimulation<ChipCombatGameWinner, Tuple<string, string>, ChipCombatGameWinner.ChipPlayer>
+                    .ParallelSearch(ChipCombatsimulation, 10000);
+
 
             PieceView attackingPiece = null;
             PieceView targetPiece = null;
 
             foreach (PieceView epiece in enemyPieces)
             {
-                if (epiece.Id == result.Item1.Id)
+                if (epiece.Id == bestmove.Item1)
                 {
                     attackingPiece = epiece;
                 }
@@ -28,7 +35,7 @@ namespace DefaultNamespace.AI.aiBehaviours.complex
 
             foreach (PieceView ppiece in playerPieces)
             {
-                if (ppiece.Id == result.Item2.Id)
+                if (ppiece.Id == bestmove.Item2)
                 {
                     targetPiece = ppiece;
                 }

@@ -1,5 +1,7 @@
 using DAE.GameSystem.Singleton;
 using DefaultNamespace.AI;
+using DefaultNamespace.AI.Algorythms.MCTS;
+using DefaultNamespace.AI.Algorythms.MCTStry3;
 using DefaultNamespace.ExcelWriting;
 using DefaultNamespace.UI;
 using Game;
@@ -44,11 +46,14 @@ public class Gameloop : SingletonMonoBehaviour<Gameloop>
 
     [HideInInspector]
     public bool wonLastCombat = false;
+
+    
+    public MCTS MCTSRunner; 
     
     // private int CurrentCombatencounter = 0;
 
     // public List<List<string>> questionnaireData = new List<List<string>>();
-    public List<DataCollection> DataCollection = new List<DataCollection>();
+    public List<DataCollection> DataCollection = new();
     private void Awake()
     {
        
@@ -60,6 +65,8 @@ public class Gameloop : SingletonMonoBehaviour<Gameloop>
     {
         stateMachine.SetState(stateMachine.StartGameState);
 
+        
+        
         // TestWriteCSV();
     }
     
@@ -79,11 +86,11 @@ public class Gameloop : SingletonMonoBehaviour<Gameloop>
     
     private void TestWriteCSV()
     {
-        List<DataCollection> data = new List<DataCollection>();
+        List<DataCollection> data = new();
 
         for (int i = 0; i < 10; i++)
         {
-            DataCollection dc = new DataCollection();
+            DataCollection dc = new();
             dc.AddData("AI" + i);
             dc.AddData("1");
             dc.AddData("2");

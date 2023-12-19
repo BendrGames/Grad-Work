@@ -35,14 +35,14 @@ namespace Game.Simulation
             // Copy player pieces
             foreach (var playerPiece in board.PlayerPieces)
             {
-                PieceSimulation copyPiece = new PieceSimulation(playerPiece.pieceType, playerPiece.attack, playerPiece.health,playerPiece.Id);
+                PieceSimulation copyPiece = new(playerPiece.pieceType, playerPiece.attack, playerPiece.health,playerPiece.Id);
                 PlayerPieces.Add(copyPiece);
             }
 
             // Copy AI pieces
-            foreach (var aiPiece in board.AIPieces)
+            foreach (var aiPiece in board.EnemyPieces)
             {
-                PieceSimulation copyPiece = new PieceSimulation(aiPiece.pieceType, aiPiece.attack, aiPiece.health, aiPiece.Id);
+                PieceSimulation copyPiece = new(aiPiece.pieceType, aiPiece.attack, aiPiece.health, aiPiece.Id);
                 AIPieces.Add(copyPiece);
             }
         }
@@ -52,14 +52,14 @@ namespace Game.Simulation
             // Copy player pieces
             foreach (var playerPiece in board.PlayerPieces)
             {
-                PieceSimulation copyPiece = new PieceSimulation(playerPiece.PieceType, playerPiece.Attack, playerPiece.Health, playerPiece.Id);
+                PieceSimulation copyPiece = new(playerPiece.PieceType, playerPiece.Attack, playerPiece.Health, playerPiece.Id);
                 PlayerPieces.Add(copyPiece);
             }
 
             // Copy AI pieces
             foreach (var aiPiece in board.AIPieces)
             {
-                PieceSimulation copyPiece = new PieceSimulation(aiPiece.PieceType, aiPiece.Attack, aiPiece.Health, aiPiece.Id);
+                PieceSimulation copyPiece = new(aiPiece.PieceType, aiPiece.Attack, aiPiece.Health, aiPiece.Id);
                 AIPieces.Add(copyPiece);
             }
         }

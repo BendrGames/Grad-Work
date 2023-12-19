@@ -43,7 +43,7 @@ public class QuestionaireState : MonoBehaviour, IState
     public void ContinueButtonClocked()
     {
         string currentAI = gameloop.enemyAiManager.GetCurrentBehaviourString();
-        DataCollection data = new DataCollection();
+        DataCollection data = new();
         // List <string> data = new List<string>();
         data.AddData(currentAI);
         if (gameloop.wonLastCombat)
