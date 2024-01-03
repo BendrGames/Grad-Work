@@ -127,35 +127,6 @@ namespace GameAI.Algorithms
             return legalMoves;
         }
 
-        // public bool IsWinner(ChipPlayer player)
-        // {
-        //     if (player == ChipPlayer.player)
-        //     {
-        //         return !Pieces.Exists(piece => piece.IsPlayerPiece);
-        //     }
-        //     else
-        //     {
-        //         return !Pieces.Exists(piece => !piece.IsPlayerPiece);
-        //     }
-        // }
-        
-        // public bool IsWinner(ChipPlayer player)
-        // {
-        //     bool playerHasPieces = false;
-        //
-        //     foreach (Piece piece in Pieces)
-        //     {
-        //         if ((player == ChipPlayer.player && piece.IsPlayerPiece) ||
-        //             (player == ChipPlayer.enemy && !piece.IsPlayerPiece))
-        //         {
-        //             playerHasPieces = true;
-        //             // Continue searching, as we want to find the last player with pieces
-        //         }
-        //     }
-        //
-        //     return !playerHasPieces;
-        // }
-        
         public bool IsWinner(ChipPlayer player)
         {
             int playerPieceCount = 0;
@@ -193,3 +164,35 @@ namespace GameAI.Algorithms
         }
     }
 }
+
+
+
+
+// public bool IsWinner(ChipPlayer player)
+// {
+//     if (player == ChipPlayer.player)
+//     {
+//         return !Pieces.Exists(piece => piece.IsPlayerPiece);
+//     }
+//     else
+//     {
+//         return !Pieces.Exists(piece => !piece.IsPlayerPiece);
+//     }
+// }
+        
+// public bool IsWinner(ChipPlayer player)
+// {
+//     bool playerHasPieces = false;
+//
+//     foreach (Piece piece in Pieces)
+//     {
+//         if ((player == ChipPlayer.player && piece.IsPlayerPiece) ||
+//             (player == ChipPlayer.enemy && !piece.IsPlayerPiece))
+//         {
+//             playerHasPieces = true;
+//             // Continue searching, as we want to find the last player with pieces
+//         }
+//     }
+//
+//     return !playerHasPieces;
+// }
