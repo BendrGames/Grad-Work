@@ -18,13 +18,15 @@ namespace DefaultNamespace.AI.aiBehaviours
                 }
             }
             
-            List<PieceView> tempenemyPieces = new(enemyPieces);
-            List<PieceView> tempPlayerPieces = new(playerPieces);
+            return FallBackRandomAttack(enemyPieces, playerPieces);
             
-            tempenemyPieces.Shuffle();
-            tempPlayerPieces.Shuffle();
-
-            return new Tuple<PieceView, PieceView>(tempenemyPieces[0], tempPlayerPieces[0]);
         }
     }
 }
+            // List<PieceView> tempenemyPieces = new(enemyPieces);
+            // List<PieceView> tempPlayerPieces = new(playerPieces);
+            //
+            // tempenemyPieces.Shuffle();
+            // tempPlayerPieces.Shuffle();
+            //
+            // return new Tuple<PieceView, PieceView>(tempenemyPieces[0], tempPlayerPieces[0]);

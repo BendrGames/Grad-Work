@@ -22,9 +22,9 @@ namespace Game.Statemachine.States
         {
             List<DataCollection> data = gameloop.DataCollection;
             
-            List<DataCollection> printout = data.OrderBy(dc => dc.GetData().FirstOrDefault()).ToList();
+            // List<DataCollection> printout = data.OrderBy(dc => dc.GetData().FirstOrDefault()).ToList();
             
-            CSVWriter.WriteDataToCsv(printout);
+            CSVWriter.WriteDataToCsv(data);
             
             gameloop.GameOverScreen.SetActive(true);
         }

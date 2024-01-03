@@ -23,15 +23,18 @@ public class GameGenerationState : MonoBehaviour, IState
 
         if (gameloop.IsFirstCombat)
         {
-            gameloop.enemyAiManager.SetRandomBehaviour();
+            // gameloop.enemyAiManager.SetRandomBehaviour();
+            gameloop.enemyAiManager.SetSpecificBehaviour(AItypes.AIMCTSSelfBalancing);
         }
         else
         {
             gameloop.enemyAiManager.SetRandomBehaviourAndRemove();
+            // gameloop.enemyAiManager.SetSpecificBehaviour(AItypes.AIMCTSSelfBalancing);
         }
-
-
-        // gameloop.enemyAiManager.SetSpecificBehaviour(AItypes.AIMCTSWin);
+        
+        gameloop.turnBasedTimer.ResetTimers();
+        gameloop.turnBasedTimer.StartTotalTimer();
+        gameloop.turnBasedTimer.StartEnemyAnalyzingTimer();
 
         stateMachine.SetState(stateMachine.GameEnemyAIState);
         // stateMachine.SetState(stateMachine.GamePlayerState);

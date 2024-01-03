@@ -18,12 +18,12 @@ namespace GameAI.Algorithms
         {
             foreach (PieceView pp in board.PlayerPieces)
             {
-                Pieces.Add(new Piece(pp.Id, pp.attack, pp.health, true));
+                Pieces.Add(new Piece(pp.Id, pp.Attack, pp.Health, true));
             }
 
             foreach (PieceView pp in board.EnemyPieces)
             {
-                Pieces.Add(new Piece(pp.Id, pp.attack, pp.health, false));
+                Pieces.Add(new Piece(pp.Id, pp.Attack, pp.Health, false));
             }
 
             currentPlayer = ChipPlayer.enemy;

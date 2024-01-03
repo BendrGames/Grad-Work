@@ -21,6 +21,7 @@ namespace Game.Statemachine.States
         {
             gameloop.popup.ShowPopup("Enemy turn! AI Is Thinking", 2f);
             StartCoroutine(EnemyTurnRoutine());
+            gameloop.turnBasedTimer.SwitchPlayerTimer();
         }
 
         private PieceView attacker;

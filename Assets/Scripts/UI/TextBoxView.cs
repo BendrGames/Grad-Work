@@ -36,10 +36,10 @@ namespace DefaultNamespace.UI
 
         public void setFunnyAiGuess()
         {
-            int randomGuess = Random.Range(0, funnyAiGuesses.Count);
-
-            inputField.placeholder.GetComponent<TMP_Text>().text = funnyAiGuesses[randomGuess];
-            inputField.text = "";
+            // int randomGuess = Random.Range(0, funnyAiGuesses.Count);
+            //
+            // inputField.placeholder.GetComponent<TMP_Text>().text = funnyAiGuesses[randomGuess];
+            inputField.text = "Enter your guess here";
         }
 
         public string GetInputFieldTextIfValueChanged()
@@ -50,7 +50,7 @@ namespace DefaultNamespace.UI
             }
             else
             {
-                return "No Answer, filter this out Ben";
+                return "No Answer. filter this out Ben";
             }
         }
 

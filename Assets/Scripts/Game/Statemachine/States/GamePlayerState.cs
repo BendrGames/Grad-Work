@@ -20,8 +20,10 @@ namespace Game.Statemachine.States
 
         public void OnEnterState()
         {
+            
             gameloop.popup.ShowPopup("Player turn!");
             gameloop.EnableDragAndDrop();
+            gameloop.turnBasedTimer.SwitchPlayerTimer();
         }
 
 

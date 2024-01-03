@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PieceView : MonoBehaviour
 {
@@ -14,10 +15,12 @@ public class PieceView : MonoBehaviour
     [HideInInspector]
     public PieceType pieceType;
 
+    [FormerlySerializedAs("attack")]
     [HideInInspector]
-    public int attack;
+    public int Attack;
+    [FormerlySerializedAs("health")]
     [HideInInspector]
-    public int health;
+    public int Health;
 
     //view
     public SpriteRenderer spriteRenderer;
@@ -41,8 +44,9 @@ public class PieceView : MonoBehaviour
         Id = Guid.NewGuid().ToString();
         this.pieceName = pieceData.pieceName;
         this.pieceType = pieceType;
-        this.attack = pieceData.attack;
-        this.health = pieceData.health ;
+        this.Attack = pieceData.attack;
+        // this.Health = Mathf.RoundToInt(pieceData.health * 1.5f) ;
+        this.Health = pieceData.health;
 
         // spriteRenderer.sprite = pieceData.image;
         if (pieceType == PieceType.Player)
@@ -58,8 +62,8 @@ public class PieceView : MonoBehaviour
         
         nameText.text = pieceData.pieceName;
         spriteRenderer.sprite = pieceData.image;
-        attackText.text = attack.ToString();
-        healthText.text = health.ToString();
+        attackText.text = Attack.ToString();
+        healthText.text = Health.ToString();
 
         originalPos = this.transform.position;
     }
@@ -74,12 +78,12 @@ public class PieceView : MonoBehaviour
     {
         transform.DOMove(attackedPiece.AttackLocation.position, 0.5f);
         yield return new WaitForSeconds(1f);
-        takeDamage(attackedPiece.attack);
+        takeDamage(attackedPiece.Attack);
         
         transform.DOShakePosition(0.3f, 0.5f, 10, 90f, false, true);
         attackedPiece.transform.DOShakePosition(0.3f, 0.5f, 10, 90f, false, true);
         yield return new WaitForSeconds(0.4f);
-        attackedPiece.takeDamage(this.attack);
+        attackedPiece.takeDamage(this.Attack);
         
         
         yield return new WaitForSeconds(1f);
@@ -95,9 +99,9 @@ public class PieceView : MonoBehaviour
     }
     private void takeDamage(int damage)
     {
-        health -= damage;
+        Health -= damage;
         UpdateHealth();
-        if (health <= 0)
+        if (Health <= 0)
         {
             isDead = true;
         }
@@ -106,7 +110,7 @@ public class PieceView : MonoBehaviour
     private void UpdateHealth()
     {
         healthText.color = Color.red;
-        healthText.text = health.ToString();
+        healthText.text = Health.ToString();
     }
 
     public void PieceDeath()
@@ -121,5 +125,11 @@ public class PieceView : MonoBehaviour
         Destroy(gameObject);
        
       
+    }
+    public void AddHealth(int i)
+    {
+        Health += i;
+        healthText.color = Color.green;
+        healthText.text = Health.ToString();
     }
 }

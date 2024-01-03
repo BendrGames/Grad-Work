@@ -19,6 +19,8 @@ namespace Game.Statemachine.States
         public void OnEnterState()
         {
             board.DestroyBoard();
+            
+            gameloop.turnBasedTimer.StopAllTimers();
 
             if (gameloop.IsFirstCombat)
             {
@@ -33,7 +35,7 @@ namespace Game.Statemachine.States
 
         IEnumerator FirstGamePauzeIntervall()
         {
-            gameloop.popup.ShowPopup("Okday that was it for your Warmup, now the real game begins!", 3f);
+            gameloop.popup.ShowPopup("Okay that was it for your Warmup, now the real game begins!", 3f);
             yield return new WaitForSeconds(3f);
             stateMachine.SetState(stateMachine.GameGenerationState);
         }

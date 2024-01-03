@@ -8,17 +8,23 @@ namespace DefaultNamespace.AI.aiBehaviours.Medium
     {
         public override Tuple<PieceView, PieceView> FindTarget(Board board, List<PieceView> enemyPieces, List<PieceView> playerPieces)
         {
-            PieceView targetChip = enemyPieces.OrderBy(p => p.health).FirstOrDefault();
-    
-            // Sort playerPieces by attack in descending order
-            playerPieces = playerPieces.OrderByDescending(p => p.attack).ToList();
-    
-            int targetHealth = targetChip.health;
-    
-            // Find the attacking chip with attack greater than or equal to targetHealth
-            PieceView attackingChip = playerPieces.FirstOrDefault(p => p.attack >= targetHealth);
-
-            return new Tuple<PieceView, PieceView>(attackingChip, targetChip);
+            
+            enemyPieces = enemyPieces.OrderBy(p => p.Attack).ToList();
+            
+            playerPieces = playerPieces.OrderBy(p => p.Health).ToList();
+            
+            foreach (PieceView epiece in enemyPieces)
+            {
+                foreach (PieceView pPiece in playerPieces)
+                {
+                    if (epiece.Attack >= pPiece.Health)
+                    {
+                        return Tuple.Create(epiece, pPiece);
+                    }
+                }
+            }
+            
+            return FallBackRandomAttack(enemyPieces, playerPieces);
         }
     }
 }

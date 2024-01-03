@@ -83,6 +83,22 @@ namespace Game
                 PlayerPieces.Add(playerPiece);
                 EnemyPieces.Add(AIPiece);
             }
+            
+            PieceView closestBalancedPlayerPiece = null;
+            int closestBalancedDifference = int.MaxValue;
+
+            foreach (PieceView piece in PlayerPieces)
+            {
+                int difference = Math.Abs(piece.Attack - piece.Health);
+                if (difference < closestBalancedDifference)
+                {
+                    closestBalancedDifference = difference;
+                    closestBalancedPlayerPiece = piece;
+                }
+            }
+
+            closestBalancedPlayerPiece.AddHealth(1);
+            
         }
 
         public void DestroyBoard()
@@ -133,7 +149,7 @@ namespace Game
             for (int index = PlayerPieces.Count - 1; index >= 0; index--)
             {
                 PieceView piece = PlayerPieces[index];
-                if (piece.health <= 0)
+                if (piece.Health <= 0)
                 {
                     RemovePieceFromAlivePieces(piece);
                     piece.PieceDeath();
@@ -143,7 +159,7 @@ namespace Game
             for (int index = EnemyPieces.Count - 1; index >= 0; index--)
             {
                 PieceView piece = EnemyPieces[index];
-                if (piece.health <= 0)
+                if (piece.Health <= 0)
                 {
                     RemovePieceFromAlivePieces(piece);
                     piece.PieceDeath();

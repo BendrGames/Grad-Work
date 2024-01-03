@@ -73,9 +73,6 @@ namespace GameAI.Algorithms.MonteCarlo
                 }
             }
 
-            //for (int i = 0; i < legalMoves.Count; i++)
-            //    Console.WriteLine("Move " + legalMoves[i] + " has " + moveStats[i].victories + " victories / " + moveStats[i].executions + " executions.");
-
             return legalMoves[bestMoveFound];
 
         }

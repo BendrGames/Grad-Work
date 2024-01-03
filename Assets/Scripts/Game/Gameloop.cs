@@ -14,6 +14,8 @@ using UnityEngine.UIElements;
 
 public class Gameloop : SingletonMonoBehaviour<Gameloop>
 {
+    [Header("Timer")]
+    public TurnBasedTimer turnBasedTimer;
     
     public SimpleStateMachine stateMachine;
     public Board Board;
@@ -108,5 +110,12 @@ public class Gameloop : SingletonMonoBehaviour<Gameloop>
         CSVWriter.WriteDataToCsv(printout);
     }
     
-    
+    public void QuitButtonClicked()
+    {
+             #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
+    }
 }

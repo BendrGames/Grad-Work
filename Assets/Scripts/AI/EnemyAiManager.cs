@@ -2,8 +2,10 @@ using DefaultNamespace.AI.aiBehaviours;
 using DefaultNamespace.AI.aiBehaviours.complex;
 using DefaultNamespace.AI.aiBehaviours.high_medium;
 using DefaultNamespace.AI.aiBehaviours.Medium;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 namespace DefaultNamespace.AI
 {
     public class EnemyAiManager
@@ -19,16 +21,25 @@ namespace DefaultNamespace.AI
 
         public EnemyAiManager()
         {
+            //Low Complexity/meme
             behaviours.Add(AItypes.AiRandomBehaviour, new AiRandomBehaviour());
             behaviours.Add(AItypes.AIStraightAhead, new AIStraightAheadBehaviour());
+            behaviours.Add(AItypes.AIAlphabetical, new AIAlphabeticalBehaviour());
             
-            behaviours.Add(AItypes.AiLowestHealthTBestAttacker, new AiLowestHealthTBestAttacker());
+            //simple board evaluating AI 
             behaviours.Add(AItypes.AIRandomAAttackAndHealthT, new AIRandomAAttackAndHealthT());
             behaviours.Add(AItypes.AIRandomADangerEvalT, new AIRandomADangerEvalT());
             
+            //simple winning designer made AI
+            behaviours.Add(AItypes.AiLowestHealthTBestAttacker, new AiLowestHealthTBestAttacker());
+            behaviours.Add(AItypes.AIBestHighHealthKillPotential, new AIBestHighHealthKillPotential());
+            
+            //Deep search
             behaviours.Add(AItypes.AIMCTSDeepWin, new AIMCTSDeepWinBehaviour());
             behaviours.Add(AItypes.AIMCTSWin, new AIMCTSWinBehaviour());
-            behaviours.Add(AItypes.AIMCTSSelfBalancing, new AIMCTSSelfbalancing());
+            
+            //Hustling AI
+            behaviours.Add(AItypes.AIMCTSSelfBalancing, new AIMCTSHustling());
         }
 
         public void SetRandomBehaviour()
@@ -69,8 +80,14 @@ namespace DefaultNamespace.AI
 
         public bool IsTestedAllBehaviours()
         {
-            return behaviours.Count == AllreadyTestedBehviours.Count;
-
+            if (behaviours.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public string GetCurrentBehaviourString()
@@ -99,6 +116,8 @@ namespace DefaultNamespace.AI
             // Return the random entry
             return list[randomIndex];
         }
+        
+      
     }
 
     public enum AItypes
@@ -111,6 +130,8 @@ namespace DefaultNamespace.AI
         AIMCTSDeepWin,
         AIMCTSWin,
         AIMCTSSelfBalancing,
+        AIBestHighHealthKillPotential,
+        AIAlphabetical
 
     }
 }
