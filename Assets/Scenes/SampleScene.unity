@@ -7716,7 +7716,7 @@ MonoBehaviour:
   popup: {fileID: 7100341}
   StartGameSequence: {fileID: 1054970354}
   gameOutcome: 2
-  IsFirstCombat: 1
+  IsFirstCombat: 0
 --- !u!4 &1914139491
 Transform:
   m_ObjectHideFlags: 0

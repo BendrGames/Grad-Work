@@ -16,8 +16,8 @@ namespace DefaultNamespace.AI
         private AItypes currentBehaviourtype;
         private AIBehaviourBase currentBehaviour;
         
-        public static int DeepSearchIterationMultiplyer = 500;
-        public static int UndeepSearchIterationMultiplyer = 5;
+        internal static readonly int DeepSearchIterationMultiplyer = 500;
+        internal static readonly int UndeepSearchIterationMultiplyer = 5;
 
         public EnemyAiManager()
         {
@@ -25,6 +25,7 @@ namespace DefaultNamespace.AI
             behaviours.Add(AItypes.AiRandomBehaviour, new AiRandomBehaviour());
             behaviours.Add(AItypes.AIStraightAhead, new AIStraightAheadBehaviour());
             behaviours.Add(AItypes.AIAlphabetical, new AIAlphabeticalBehaviour());
+            behaviours.Add(AItypes.AILeftToRight, new AILeftToRightBehaviour());
             
             //simple board evaluating AI 
             behaviours.Add(AItypes.AIRandomAAttackAndHealthT, new AIRandomAAttackAndHealthT());
@@ -131,7 +132,8 @@ namespace DefaultNamespace.AI
         AIMCTSWin,
         AIMCTSSelfBalancing,
         AIBestHighHealthKillPotential,
-        AIAlphabetical
+        AIAlphabetical,
+        AILeftToRight
 
     }
 }
